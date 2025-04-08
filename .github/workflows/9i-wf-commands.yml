@@ -1,0 +1,16 @@
+name: wf-commands
+on: 
+  push:
+    branches: [wf-comm]
+jobs:
+  wf-command:
+    runs-on: ubuntu-latest
+    steps:
+      - name: disable-wf-commands
+        run: |
+          echo '::warning:: WF commands are being processed.'
+          stopMarker=$(uuidgen)
+          echo "::stop-commands::$stopMarker" # stop
+          echo '::warning::This will NOT be rendered as a warning, because stop-commands has been invoked.'
+          echo "::stopMarker::"
+          echo '::warning:: This is a warning again, because stop-commands has been turned off.'
