@@ -1,7 +1,7 @@
 name: wf-commands
 on: 
   push:
-    branches: [wf-comm]
+    branches: [main]
 jobs:
   wf-command:
     runs-on: ubuntu-latest
