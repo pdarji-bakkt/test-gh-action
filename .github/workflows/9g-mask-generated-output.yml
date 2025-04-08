@@ -1,0 +1,15 @@
+name: mask-generated-output
+on: push
+jobs:
+  mask-generated-output:
+    runs-on: ubuntu-latest
+    steps:
+      - id: sets-a-secret
+        name: Generate, mask, n output a secret
+        run: |
+          the_secret=$((RANDOM))
+          echo "::add-mask::$the_secret"
+          echo "secret-number=$the_secret" >> "$GH_OUTPUT"
+      - name: Use that secret output (protected by a mask)
+        run: |
+          echo "the secret num is ${{ steps.sets-a-secret.outputs.secret-number }}"
