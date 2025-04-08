@@ -1,5 +1,7 @@
 name: mask-generated-output
-on: push
+on: 
+  push:
+    branches: [mask]
 jobs:
   mask-generated-output:
     runs-on: ubuntu-latest

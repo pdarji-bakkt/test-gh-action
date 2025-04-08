@@ -2,7 +2,7 @@
 name: add-mask
 on: 
   push:
-    branches: [main]
+    branches: [mask]
 jobs:
   add-mask:
     runs-on: ubuntu-latest
