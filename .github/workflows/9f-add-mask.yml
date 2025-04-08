@@ -1,0 +1,13 @@
+# When you print the variable MY_NAME or the value "Joe" in the log, you'll see "***" instead.
+name: add-mask
+on: 
+  push:
+    branches: [mask]
+jobs:
+  add-mask:
+    runs-on: ubuntu-latest
+    env:
+      MY_NAME: "Joe"
+    steps:
+      - name: bash-version
+        run: echo "::add-mask::$MY_NAME"

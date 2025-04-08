@@ -1,9 +1,12 @@
 name: runners-in-group
-on: [push]
+on: 
+  push:
+    branches: [runner]
 jobs:
   check-bats-version:
     runs-on:
       group: ubuntu-runners
+      labels: ubuntu-20.04-16core
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

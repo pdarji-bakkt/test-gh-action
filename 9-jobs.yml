@@ -1,0 +1,20 @@
+# Example: Requiring successful dependent jobs
+# name: dependent-jobs
+# on:
+#   push:
+#     branches: [ dep-jobs ]
+jobs:
+  job1:
+  job2:
+    needs: job1
+  job3:
+    needs: [ job1, job2 ]
+
+  ## Example: Not requiring successful dependent jobs
+  ## job6 always runs after job4 & job5
+  job4:
+  job5:
+    needs: job4
+  job6:
+    if: ${{ always() }}
+    needs: [ job4, job5 ]

@@ -1,0 +1,72 @@
+# https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/using-jobs-in-a-workflow
+# Adding an action from the same repository
+# |-- hello-world (repository)
+# |   |__ .github
+# |       └── workflows
+# |           └── my-first-workflow.yml
+# |       └── actions
+# |           |__ hello-world-action
+# |               └── action.yml
+
+jobs:
+  job-action:
+    runs-on: ubuntu-latest
+    steps:
+    # This step checks out a copy of your repository.
+    - name: My first step - check out repository
+      uses: actions/checkout@v4
+    # This step references the directory that contains the action.
+    - name: Use local hello-world-action
+      uses: ./.github/actions/hello-world-action  // reads actions.yml from defined dir
+
+  ## Adding an action from a different repository
+  action-from-diff-repo:
+    runs-on: ubuntu-latest
+    steps:
+    - name: action-from-diff-repo
+      uses: actions/setup-node@v4
+
+  ## Referencing a container on Docker Hub
+  ref-container:
+    runs-on: ubuntu-latest
+    steps:
+    - name: My first step
+      uses: docker://alpine:3.8
+
+  ## Using release mngt for your CUSTOM actions
+  # using tags
+  custom-actions-tag:
+    runs-on: ubuntu-latest
+    steps:
+    - name: use Tag
+      uses: actions/javascript-action@v1.0.1
+
+  # using SHAs
+  custom-actions-sha:
+    runs-on: ubuntu-latest
+    steps:
+    - name: use sha
+      uses: actions/javascript-action@a824008085750b8e136effc585c3cd6082bd575f
+
+  # using branches
+  custom-actions-branch:
+    runs-on: ubuntu-latest
+    steps:
+    - name: use branch
+      uses: actions/javascript-action@main
+  #####
+
+  # Using inputs and outputs with an action
+  # An action often accepts or requires inputs 
+  name: "Example"
+  description: "Receives file & generates output"
+  inputs:
+    file-path:
+      # id of input
+      description: "Path to test script"
+      required: true
+      default: "test-file.js"
+  outputs:
+    results-file:
+      # id of output
+      description: "Path to results file"

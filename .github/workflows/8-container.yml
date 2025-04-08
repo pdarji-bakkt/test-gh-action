@@ -1,0 +1,22 @@
+name: container-test
+on:
+  push:
+    branches: [ container ]
+jobs: 
+  container-test:
+    runs-on: ubuntu-latest
+    container:
+      image: node:18
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.github_token }}
+      env:
+        NODE_ENV: dev
+      ports:
+        - 80
+      volumes:
+        - docker_vol:/volume_mount
+      options: --cpus 1
+    steps:
+      - name: Check for dockerenv file
+        run: (ls /.dockerenv && echo 'Found dockerenv') || (echo 'No dockerenv')
