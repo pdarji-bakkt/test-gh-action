@@ -1,0 +1,15 @@
+name: run-script
+on: 
+  push:
+    branches: main
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    defaults: 
+      run:
+        working-directory: ./scripts
+    steps:
+      - name: checkout-repo-to-runner
+        uses: actions/checkout@v4
+      - name: run-script
+        run: ./test.sh
