@@ -2,7 +2,7 @@
 name: set-output
 on:
   push: 
-    branches: [set_output]
+    branches: [main]
 jobs:
   set-output:
     runs-on: ubuntu-latest
@@ -10,15 +10,18 @@ jobs:
       - name: set-color
         id: color-selector
         run: echo "SELECTED_COLOR=blue" >> "$GITHUB_OUTPUT"
+    outputs:
+      my_var: ${{ steps.color-selector.outputs.SELECTED_COLOR}}
+      # - name: get-color
+      #   env:
+      #     SELECTED_COLOR: ${{ steps.color-selector.outputs.SELECTED_COLOR }}
+      #   run: echo "Color is $SELECTED_COLOR"
+  ## TEST BELOW ********
+  use-output:
+    needs: set-output
+    runs-on: ubuntu-latest
+    steps:
       - name: get-color
         env:
-          SELECTED_COLOR: ${{ steps.color-selector.outputs.SELECTED_COLOR }}
+          SELECTED_COLOR: ${{ needs.set-output.outputs.my_var }}
         run: echo "Color is $SELECTED_COLOR"
-  ## TEST BELOW ********
-  # use-output:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: get-color
-  #       env:
-  #         SELECTED_COLOR: ${{ steps.color-selector.outputs.SELECTED_COLOR }}
-  #       run: echo "Color is $SELECTED_COLOR"
