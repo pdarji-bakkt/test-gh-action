@@ -1,0 +1,19 @@
+name: env-vars
+on: 
+  push:
+    branches: [main]
+jobs:
+  set-env-vars:
+    runs-on: ubuntu-latest
+    steps:
+      - name: set-env-vars
+        run: echo 'MY_ENV_VAR=myValue' >> $GITHUB_ENV
+      - name: use-env-vars
+        run: | 
+          echo "The value of MY_ENV_VAR is $MY_ENV_VAR"
+      - name: 2-set-env-vars
+        run: echo 'MY_ENV_VAR=myValue' >> "$GITHUB_ENV"
+      - name: 2-use-env-vars
+        run: echo "The value of MY_ENV_VAR is $MY_ENV_VAR"
+      #- name: store-build-time
+      #  run: echo "BUILT_TIME=$(date + %T)" >> $GITHUB_ENV
