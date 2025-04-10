@@ -1,0 +1,23 @@
+# client payload
+# {
+#   "event_type": "test",
+#   "client_payload": {
+#     "versions": [12, 14, 16]
+#   }
+# }
+
+name: contexts-create-metrix
+on:
+  repository_dispatch:
+    types:
+      - test
+jobs:
+  contexts-create-metrix:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: ${{ github.event.client_payload.versions }}
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.version }}

@@ -1,12 +1,12 @@
 name: matrix
 on: 
   push:
-    branches: main
+    branches: [matrix]
 jobs:
   job1:
     runs-on: ubuntu-latest
     strategy:
-      matrix:
+      matrix:   # runs multiple jobs within 'job1'
         version: [1,2,3]
     steps:
       - name: generate-output
@@ -24,3 +24,10 @@ jobs:
     needs: [job1]
     steps:
       - run: echo '${{ toJSON(needs.job1.outputs) }}'
+
+  # Will show
+  # {
+  #   "output_1": "1",
+  #   "output_2": "2",
+  #   "output_3": "3"
+  # }
