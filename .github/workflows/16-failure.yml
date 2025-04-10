@@ -1,0 +1,14 @@
+name: test-failure
+on:
+  push:
+    branches: test-failure
+jobs:
+  test-failure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: failed-step
+        id: demo
+        run: exit 1
+      # below is not working, fix it later
+      #- name: check-prev-step
+      #  if: ${{ failure() && steps.demo.conclusion == 'failure' }}

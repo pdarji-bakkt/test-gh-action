@@ -1,3 +1,7 @@
+# env : at top level, for entire WF
+# jobs.<job-id>.env : contents of a job within  a WF
+# jobs.<job-id>.step[*].env : specific step within a job
+# To config vars for multiple WFs define them at either the Org, repo or env level.
 # To share info between Steps within a single job use Environment vars
 name: env-vars
 on: 
