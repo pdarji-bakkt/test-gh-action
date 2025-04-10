@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults: 
       run:
-        working-directory: ./scripts
+        working-directory: .github\scripts
     steps:
       - name: checkout-repo-to-runner
         uses: actions/checkout@v4
