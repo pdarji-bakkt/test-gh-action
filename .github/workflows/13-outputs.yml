@@ -1,0 +1,16 @@
+# To share info between separate jobs, use outputs
+name: set-output
+on:
+  push: 
+    branches: [main]
+jobs:
+  set-output:
+    runs-on: ubuntu-latest
+    steps:
+      - name: set-color
+        id: color-selector
+        run: echo "SELECTED_COLOR=blue" >> "$GITHUB_OUTPUT"
+      - name: get-color
+        env:
+          SELECTED_COLOR: ${{ steps.color-selector.outputs.SELECTED_COLOR }}
+        run: echo "Color is $SELECTED_COLOR"

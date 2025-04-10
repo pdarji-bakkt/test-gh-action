@@ -1,7 +1,8 @@
+# To share info between Steps within a single job use Environment vars
 name: env-vars
 on: 
   push:
-    branches: [main]
+    branches: [env_vars]
 jobs:
   set-env-vars:
     runs-on: ubuntu-latest
@@ -12,7 +13,7 @@ jobs:
         run: | 
           echo "The value of MY_ENV_VAR is $MY_ENV_VAR"
       - name: store-build-time
-        run: echo "BUILT_TIME=$(date + %T)" >> $GITHUB_ENV
+        run: echo "BUILT_TIME=$(date + '%T')" >> $GITHUB_ENV
       - name: use-build-time
         run: printf '%s\n' "$BUILT_TIME"
 
