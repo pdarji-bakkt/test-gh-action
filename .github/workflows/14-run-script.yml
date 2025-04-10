@@ -1,7 +1,7 @@
 name: run-script
 on: 
   push:
-    branches: main
+    branches: run-script
 jobs:
   run-script:
     runs-on: ubuntu-latest

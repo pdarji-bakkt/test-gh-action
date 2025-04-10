@@ -1,0 +1,36 @@
+# return a JSON Object
+#name: fromJSON
+#on: 
+#  push:
+#     branches: fromjson
+# jobs:
+#   set-matrix:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - id: set-matrix
+#         run: echo "matrix={\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}" >> $GITHUB_OUTPUT
+#     outputs:
+#       matrix: ${{ steps.set-matrix.outputs.matrix}}
+
+#   use-matrix:
+#     needs: set-matrix
+#     runs-on: ubuntu-latest
+#     strategy:
+#       matrix: ${{ fromJSON(needs.set-matrix.outputs.matrix) }}
+#     steps:
+#       - run: echo "Matrix - Project ${{ matrix.project }}"
+
+## return a JSON data type
+name: fromJSON
+on:
+  push
+env:
+  continue: true
+  time: 3
+jobs:
+  return-data-type:
+    runs-on: ubuntu-latest
+    steps:
+      - continue-on-error: ${{ fromJSON(env.continue) }}
+        timeout-minutes: ${{ fromJSON(env.time) }}
+        run: echo "hi"
