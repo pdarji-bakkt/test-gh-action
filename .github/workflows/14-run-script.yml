@@ -11,5 +11,7 @@ jobs:
     steps:
       - name: checkout-repo-to-runner
         uses: actions/checkout@v4
+      - name: update-script-perm
+        run: chmod +x test.sh
       - name: run-script
         run: ./test.sh
