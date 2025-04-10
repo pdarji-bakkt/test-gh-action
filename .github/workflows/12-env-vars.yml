@@ -11,9 +11,19 @@ jobs:
       - name: use-env-vars
         run: | 
           echo "The value of MY_ENV_VAR is $MY_ENV_VAR"
-      - name: 2-set-env-vars
-        run: echo 'MY_ENV_VAR2=test' >> "$GITHUB_ENV"
-      - name: 2-use-env-vars
-        run: echo "The value of MY_ENV_VAR2 is $MY_ENV_VAR2"
-      #- name: store-build-time
-      #  run: echo "BUILT_TIME=$(date + %T)" >> $GITHUB_ENV
+      - name: store-build-time
+        run: echo "BUILT_TIME=$(date + %T)" >> $GITHUB_ENV
+      - name: use-build-time
+        run: printf '%s\n' "$BUILT_TIME"
+
+    # multi-string
+      - name: store-multiline
+        id: step-two
+        run: |
+          {
+            echo 'JSON_RESPONSE <<EOF'
+            curl https://example.com
+            echo EOF
+          } >> "$GITHUB_ENV"
+      - name: use-multiline
+        run:   echo "$JSON_RESPONSE"
