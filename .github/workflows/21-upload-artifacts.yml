@@ -18,6 +18,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dist-without-markdown
+          retention-days: 2
           path: |
             dist
             !dist/**/*.md
