@@ -1,6 +1,7 @@
 name: shared-matrix
 on:
   push:
+    branches: [shared-matrix]
   workflow_dispatch:
 
 jobs:
@@ -10,8 +11,7 @@ jobs:
     steps:
       - name: define-colors
         id: colors
-        run: |
-          echo 'colors=["red", "green", "blue"]' >> "$GITHUB_OUTPUT"
+        run: echo 'colors=["red", "blue"]' >> "$GITHUB_OUTPUT"
     
     outputs:
       colors: ${{ steps.colors.outputs.colors }}
@@ -27,9 +27,9 @@ jobs:
       - name: define-color
         env:
           color: ${{ matrix.color }}
-        run: |
-          echo "$color" > color
-      - name: Produce Artifact
+        run: echo "$color" > color
+
+      - name: produce-artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.color }}
@@ -45,11 +45,10 @@ jobs:
         color: ${{ fromJSON(needs.define-matrix.outputs.colors) }}
 
     steps:
-    - name: Retrieve Artifact
+    - name: retrieve-artifact
       uses: actions/download-artifact@v4
       with:
         name: ${{ matrix.color }}
 
-    - name: Report Color
-      run: |
-        cat color
+    - name: report-color
+      run: cat color
